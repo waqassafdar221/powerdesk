@@ -1,12 +1,11 @@
 "use client"
 
 import React from 'react'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import useTranslations from '../lib/useTranslations'
 
 export default function LanguageSwitch() {
   const pathname = usePathname() || '/'
-  useSearchParams()
   const { locale, t } = useTranslations()
   const router = useRouter()
 
