@@ -12,23 +12,7 @@ import CumulativeRecouped from '../../components/CumulativeRecouped'
 import apiFetch from '../../lib/fetcher'
 import useSettingsStore from '../../store/settings'
 import useTranslations from '../../lib/useTranslations'
-
-type Inv = {
-  rated_kw?: number
-  active_power_kw?: number
-  id?: string
-  name?: string
-  dimmedReason?: string | null
-}
-
-type Charger = {
-  id?: string
-  vehicle?: string
-  plugged_in?: boolean
-  charging_kw?: number
-}
-
-const fetcher = (key: string) => apiFetch(key.replace(/^\/+/, ''))
+import type { Battery, Inverter, Charger, GridStatus, Generator, KPIs } from '../../lib/types'
 
 export default function DashboardPage() {
   // QA scenario from settings
@@ -37,14 +21,14 @@ export default function DashboardPage() {
   const withScenario = (path: string) => (scenario ? `${path}?scenario=${encodeURIComponent(scenario)}` : path)
   const { t } = useTranslations()
 
-  const { data: battery, error: batteryError } = useSWR(() => withScenario('/battery'), fetcher, { refreshInterval: 4000 })
-  const { data: inverters, error: invertersError } = useSWR(() => withScenario('/inverters'), fetcher, { refreshInterval: 4000 })
-  const { data: grid, error: gridError } = useSWR(() => withScenario('/grid'), fetcher, { refreshInterval: 4000 })
-  const { data: generator, error: generatorError } = useSWR(() => withScenario('/generator'), fetcher, { refreshInterval: 4000 })
-  const { data: chargers, error: chargersError } = useSWR(() => withScenario('/chargers'), fetcher, { refreshInterval: 4000 })
-  const { data: kpis, error: kpisError } = useSWR(() => withScenario('/kpis'), fetcher, { refreshInterval: 4000 })
-  const { data: pvSelf, error: pvSelfError } = useSWR(() => withScenario('/series/pv_self'), fetcher, { refreshInterval: 4000 })
-  const { data: recouped, error: recoupedError } = useSWR(() => withScenario('/series/recouped'), fetcher, { refreshInterval: 4000 })
+  const { data: battery, error: batteryError } = useSWR<Battery | undefined>(() => withScenario('/battery'), () => apiFetch<Battery>('battery'), { refreshInterval: 4000 })
+  const { data: inverters, error: invertersError } = useSWR<Inverter[] | undefined>(() => withScenario('/inverters'), () => apiFetch<Inverter[]>('inverters'), { refreshInterval: 4000 })
+  const { data: grid, error: gridError } = useSWR<GridStatus | undefined>(() => withScenario('/grid'), () => apiFetch<GridStatus>('grid'), { refreshInterval: 4000 })
+  const { data: generator, error: generatorError } = useSWR<Generator | undefined>(() => withScenario('/generator'), () => apiFetch<Generator>('generator'), { refreshInterval: 4000 })
+  const { data: chargers, error: chargersError } = useSWR<Charger[] | undefined>(() => withScenario('/chargers'), () => apiFetch<Charger[]>('chargers'), { refreshInterval: 4000 })
+  const { data: kpis, error: kpisError } = useSWR<KPIs | undefined>(() => withScenario('/kpis'), () => apiFetch<KPIs>('kpis'), { refreshInterval: 4000 })
+  const { data: pvSelf, error: pvSelfError } = useSWR<Array<{ t: string; savedEUR: number; consumptionKwh: number; priceEUR: number }> | undefined>(() => withScenario('/series/pv_self'), () => apiFetch('/series/pv_self'), { refreshInterval: 4000 })
+  const { data: recouped, error: recoupedError } = useSWR<Array<{ t: string; cumulativeEUR: number }> | undefined>(() => withScenario('/series/recouped'), () => apiFetch('/series/recouped'), { refreshInterval: 4000 })
 
   // settings-driven flags
   const {
@@ -146,7 +130,7 @@ export default function DashboardPage() {
             <div className="p-4"><div className="h-32 rounded bg-foreground/6 dark:bg-foreground/10" /></div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {inverters.map((inv: Inv, idx: number) => {
+              {inverters.map((inv: Inverter, idx: number) => {
                 const rated = inv?.rated_kw ?? 25
                 const percentFloat = ((inv?.active_power_kw ?? 0) / rated) * 100
                 return (

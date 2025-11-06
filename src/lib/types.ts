@@ -11,6 +11,10 @@ export interface Battery {
 export interface Inverter {
   id: string
   name?: string
+  // rated capacity (kW) used for UI percent calculations
+  rated_kw?: number
+  // optional reason why the inverter is dimmed in mocks/UI
+  dimmedReason?: string | null
   active_power_kw: number
   temperature_c?: number
   updated_at?: string
