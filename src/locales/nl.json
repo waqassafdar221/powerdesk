@@ -1,0 +1,42 @@
+{
+  "app.title": "Powerdesk",
+  "app.tagline": "Moderne UI",
+  "header.workspace": "Werkruimte",
+  "header.subtitle": "Beheer je projecten",
+
+  "nav.dashboard": "Dashboard",
+  "nav.settings": "Instellingen",
+
+  "panel.kpis": "KPI's",
+  "panel.battery": "Batterij",
+  "panel.grid": "Netmeter",
+  "panel.generator": "Generator",
+  "panel.inverters": "Omvormers",
+  "panel.ev": "EV Laadpunten",
+  "panel.revenue": "Omzet",
+
+  "kpi.site_load": "Site belasting",
+  "kpi.generation": "Opwekking",
+  "kpi.battery_soc": "Batterij SOC",
+  "kpi.grid_import": "Net import",
+  "kpi.grid_export": "Net export",
+
+  "settings.title": "Operator instellingen",
+  "settings.night_reserve": "Nachtreserve (%)",
+  "settings.evening_target": "Avond doel (%)",
+  "settings.min_reserve": "Minimale reserve (%)",
+  "settings.zero_export": "Geen export",
+  "settings.negative_price": "Demp bij negatieve prijs",
+  "settings.generator_threshold": "Generator drempel (kW)",
+  "settings.tariff_mode": "Tariefmodus",
+  "settings.max_charge": "Max laadvermogen (kW)",
+  "settings.reset": "Reset",
+
+  "qa.scenario": "QA Scenario",
+
+  "loading": "Laden…",
+  "error.loading": "Fout bij laden",
+
+  "lang.en": "English",
+  "lang.nl": "Nederlands"
+}

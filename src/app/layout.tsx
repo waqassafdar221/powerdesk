@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import ThemeProviderClient from "../components/ThemeProviderClient";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,10 +25,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Inline script to synchronously apply the user's theme preference to the
+            documentElement before React hydrates. This reduces hydration
+            mismatches where the server-rendered HTML contained a theme class or
+            color-scheme but the client hasn't applied it yet. We read the same
+            storage key that `next-themes` uses ("theme") and fall back to the
+            user's prefers-color-scheme. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches? 'dark':'light'}document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);document.documentElement.style.colorScheme=t}catch(e){} })()`,
+          }}
+        />
+        <ThemeProviderClient>
+          {children}
+        </ThemeProviderClient>
       </body>
     </html>
   );

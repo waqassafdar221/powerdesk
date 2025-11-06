@@ -1,0 +1,42 @@
+{
+  "app.title": "Powerdesk",
+  "app.tagline": "Modern UI",
+  "header.workspace": "Workspace",
+  "header.subtitle": "Manage your projects",
+
+  "nav.dashboard": "Dashboard",
+  "nav.settings": "Settings",
+
+  "panel.kpis": "KPIs",
+  "panel.battery": "Battery",
+  "panel.grid": "Grid Meter",
+  "panel.generator": "Generator",
+  "panel.inverters": "Inverters",
+  "panel.ev": "EV Charging Points",
+  "panel.revenue": "Revenue",
+
+  "kpi.site_load": "Site Load",
+  "kpi.generation": "Generation",
+  "kpi.battery_soc": "Battery SOC",
+  "kpi.grid_import": "Grid Import",
+  "kpi.grid_export": "Grid Export",
+
+  "settings.title": "Operator Settings",
+  "settings.night_reserve": "Night reserve (%)",
+  "settings.evening_target": "Evening target (%)",
+  "settings.min_reserve": "Min reserve (%)",
+  "settings.zero_export": "Zero export",
+  "settings.negative_price": "Curtail on negative price",
+  "settings.generator_threshold": "Generator threshold (kW)",
+  "settings.tariff_mode": "Tariff mode",
+  "settings.max_charge": "Max charge rate (kW)",
+  "settings.reset": "Reset",
+
+  "qa.scenario": "QA Scenario",
+
+  "loading": "Loading…",
+  "error.loading": "Error loading",
+
+  "lang.en": "English",
+  "lang.nl": "Nederlands"
+}
