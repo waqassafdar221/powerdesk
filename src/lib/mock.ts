@@ -181,11 +181,11 @@ const SCENARIO_CONFIG: Record<ScenarioName, ScenarioConfig> = {
 
 export const SCENARIOS: Array<{ value: ScenarioName; label: string }> = Object.keys(SCENARIO_CONFIG).map((k) => ({ value: k as ScenarioName, label: SCENARIO_CONFIG[k as ScenarioName].label }))
 
-export function getScenarioOverrides(endpoint: keyof EndpointOverrides, scenario?: ScenarioName | string | null): unknown {
-  if (!scenario) return {}
+export function getScenarioOverrides<T extends keyof EndpointOverrides>(endpoint: T, scenario?: ScenarioName | string | null): EndpointOverrides[T] {
+  if (!scenario) return {} as EndpointOverrides[T]
   const cfg = (SCENARIO_CONFIG as Record<string, ScenarioConfig>)[scenario]
-  if (!cfg || !cfg.endpoints) return {}
-  return (cfg.endpoints as EndpointOverrides)[endpoint] ?? {}
+  if (!cfg || !cfg.endpoints) return {} as EndpointOverrides[T]
+  return (cfg.endpoints as EndpointOverrides)[endpoint] ?? ({} as EndpointOverrides[T])
 }
 
 export function getSeriesMultiplier(seriesName: string, scenario?: ScenarioName | string | null) {
